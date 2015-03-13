@@ -85,5 +85,112 @@
     XCTAssertTrue([result isEqualTo: @(0)], @"Myfunc doesnt work");
 }
 
+#pragma mark Stored Scripts
+
+- (void)testUsingCoreGraphicsScript_ShouldRun {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"CoreGraphics.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    NSArray *result = [runtime callFunctionWithName:@"main"];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+    result = nil;
+}
+
+#pragma Memeory Tests
+- (void)test_10_UsingMemoryAllocationScript_ShouldRun {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"JSMemoryAllocation.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    NSArray *result = [runtime callFunctionWithName:@"main" withArgumentsInArray: @[@(10)]];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+}
+
+- (void)test_11_UsingMemoryAllocationScript_ShouldRun {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"MemoryAllocation.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    NSArray *result = [runtime callFunctionWithName:@"main" withArgumentsInArray: @[@(10)]];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+}
+
+- (void)test_12_UsingJSMemoryAllocationScript_WithMoreIterations_ShouldRunFast {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"JSMemoryAllocation.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    __block NSArray *result;
+    [self measureBlock:^{
+        result = [runtime callFunctionWithName:@"main" withArgumentsInArray: @[@(5000)]];
+    }];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+}
+
+- (void)test_13_UsingMemoryAllocationScript_WithMoreIterations_ShouldRunFast {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"MemoryAllocation.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    __block NSArray *result;
+    [self measureBlock:^{
+        result = [runtime callFunctionWithName:@"main" withArgumentsInArray: @[@(500)]];
+    }];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+}
+
+/* Takes ~.7 sec on a 2011 Mini  */
+- (void)test_14_UsingJSMemoryAllocationScript_WithHugeNumberOfIterations_ShouldNotCrash {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"JSMemoryAllocation.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    NSArray *result;
+    result = [runtime callFunctionWithName:@"main" withArgumentsInArray: @[@(100000)]];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+}
+
+/* Unfortunately this will just crash if it doesn't work. Takes ~70 sec on a 2011 Mini  */
+- (void)test_15_UsingMemoryAllocationScript_WithHugeNumberOfIterations_ShouldNotCrash {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"MemoryAllocation.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    
+    [runtime evalString:testScript];
+    
+    NSArray *result;
+    result = [runtime callFunctionWithName:@"main" withArgumentsInArray: @[@(100000)]];
+    XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
+}
+
+
+
 
 @end

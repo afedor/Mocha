@@ -7,20 +7,19 @@
 //
 
 function main(iterations) {
-    var array = NSMutableArray.alloc().init();
+    var array = [];
     for (var i=0; i<iterations; i++) {
-        var dict = NSMutableDictionary.alloc().init();
+        var dict = {}
+        dict["string"] = "foobar";
+        dict["integer"] = 100;
+        dict["boolean"] = true;
+        //dict{"date"} = NSDate.date();
 
-        dict.setObject_forKey_("foobar", "string");
-        dict.setObject_forKey_(100, "integer");
-        dict.setObject_forKey_(true, "boolean");
-        dict.setObject_forKey_(NSDate.date(), "date");
-
-        array.addObject_(dict);
+        array[i] = dict;
     }
     
-    var count = array.count;
-    
+    var count = array.length;
+
     var result = null;
     if (count == iterations) {
         result = [true, null];

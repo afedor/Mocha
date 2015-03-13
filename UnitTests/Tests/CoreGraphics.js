@@ -7,13 +7,13 @@
 //
 
 function main() {
-    var fm = NSFileManager.alloc().init().autorelease();
+    var fm = NSFileManager.alloc().init();
     
     var url = NSURL.fileURLWithPath_("/tmp/foo.pdf");
     fm.removeItemAtURL_error_(url, null);
     
     var rect = CGRectMake(0.0, 0.0, 100.0, 100.0);
-    var rectPtr = MOPointer.alloc().initWithValue_(rect).autorelease();
+    var rectPtr = MOPointer.alloc().initWithValue_(rect);
     var c = CGPDFContextCreateWithURL(url, rect, null);
     
     CGPDFContextBeginPage(c, null);
