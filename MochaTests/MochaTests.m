@@ -82,7 +82,7 @@
      return dict2.count;}"];
     
     id result = [runtime callFunctionWithName: @"myfunc"];
-    XCTAssertTrue([result isEqualTo: @(0)], @"Myfunc doesnt work");
+    XCTAssertTrue([result isEqualTo: @(0)], @"Setting mutable dictionary doesnt work");
 }
 
 #pragma mark Stored Scripts
@@ -101,7 +101,7 @@
     result = nil;
 }
 
-#pragma Memeory Tests
+#pragma mark Memory Allocation
 - (void)test_10_UsingMemoryAllocationScript_ShouldRun {
     NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"JSMemoryAllocation.js"];
     NSError *error = nil;
@@ -160,6 +160,7 @@
     XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
 }
 
+#pragma mark Garbage Collection
 /* Takes ~.7 sec on a 2011 Mini  */
 - (void)test_14_UsingJSMemoryAllocationScript_WithHugeNumberOfIterations_ShouldNotCrash {
     NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"JSMemoryAllocation.js"];
@@ -190,7 +191,16 @@
     XCTAssertTrue([result[0] boolValue], @"%@", result[1]);
 }
 
-
-
+/* Unfortunately this will just crash if it doesn't work. Takes ~10 sec on a 2011 Mini  */
+- (void)test_15_UsingGarbageCollect2Script_WithHugeNumberOfIterations_ShouldNotCrash {
+    NSURL *URL = [testScriptURL URLByAppendingPathComponent: @"GarbageCollect2.js"];
+    NSError *error = nil;
+    NSString *testScript = [NSString stringWithContentsOfURL:URL usedEncoding:NULL error:&error];
+    
+    XCTAssertNotNil(testScript, @"Error loading test script: %@", error);
+    [runtime evalString:testScript];
+    
+    XCTAssertTrue(1, @"GarbageCollect2 Test did not run");
+}
 
 @end
