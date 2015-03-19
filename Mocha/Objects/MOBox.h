@@ -33,7 +33,7 @@
  * 
  * @result A JSObjectRef value
  */
-@property JSObjectRef JSObject;
+@property (nonatomic) JSObjectRef JSObject;
 
 /*!
  * @property runtime
@@ -42,5 +42,19 @@
  * @result A Mocha object
  */
 @property (weak) Mocha *runtime;
+
+/*!
+ * @property lastAccessDate
+ * @abstract The last time the JSObject was accessed
+ *
+ * @result A date
+ */
+@property NSDate *lastAccessDate;
+
+/*! Protects the JSObject from being garbage collected by the JS runtime. */
+- (void) protectObject;
+
+/*! Un-protects the JSObject so that it can be garbage collected by the JS runtime. */
+- (void) unprotectObject;
 
 @end
