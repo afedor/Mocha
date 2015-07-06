@@ -76,7 +76,7 @@ NSString * const MOJavaScriptException = @"MOJavaScriptException";
     JSGlobalContextRef _ctx;
     BOOL _ownsContext;
     NSMutableDictionary *_exportedObjects;
-    MOMapTable *_objectsToBoxes;
+    NSMapTable *_objectsToBoxes;
     NSMutableArray *_frameworkSearchPaths;
 }
 
@@ -201,7 +201,9 @@ NSString * const MOJavaScriptException = @"MOJavaScriptException";
     if (self) {
         _ctx = ctx;
         _exportedObjects = [[NSMutableDictionary alloc] init];
-        _objectsToBoxes = [MOMapTable mapTableWithStrongToStrongObjects];
+        _objectsToBoxes = _objectsToBoxes = [NSMapTable
+                                             mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
+                                             valueOptions:NSMapTableStrongMemory | NSMapTableObjectPointerPersonality];
         _frameworkSearchPaths = [[NSMutableArray alloc] initWithObjects:
                                  @"/System/Library/Frameworks",
                                  @"/Library/Frameworks",
@@ -453,8 +455,7 @@ NSString * const MOJavaScriptException = @"MOJavaScriptException";
         return NULL;
     }
     
-    MOObjectKey *key = [[MOObjectKey alloc] initWithObject: object];
-    MOBox *box = [_objectsToBoxes objectForKey: key];
+    MOBox *box = [_objectsToBoxes objectForKey: object];
     if (box != nil) {
         return [box JSObject];
     }
@@ -476,7 +477,7 @@ NSString * const MOJavaScriptException = @"MOJavaScriptException";
     
     box.JSObject = jsObject;
     
-    [_objectsToBoxes setObject:box forKey:key];
+    [_objectsToBoxes setObject:box forKey: object];
     
     return jsObject;
 }
@@ -491,8 +492,7 @@ NSString * const MOJavaScriptException = @"MOJavaScriptException";
 
 - (void)removeBoxAssociationForObject:(id)object {
     if (object != nil) {
-        MOObjectKey *key = [[MOObjectKey alloc] initWithObject: object];
-        [_objectsToBoxes removeObjectForKey: key];
+        [_objectsToBoxes removeObjectForKey: object];
     }
 }
 
