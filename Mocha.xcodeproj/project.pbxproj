@@ -97,6 +97,8 @@
 		2D75F67B1711975C00876CCF /* prep_cif.c in Sources */ = {isa = PBXBuildFile; fileRef = 2D75F6671711975C00876CCF /* prep_cif.c */; };
 		2D75F67C1711975C00876CCF /* raw_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 2D75F6681711975C00876CCF /* raw_api.c */; };
 		2D75F67D1711975C00876CCF /* types.c in Sources */ = {isa = PBXBuildFile; fileRef = 2D75F6691711975C00876CCF /* types.c */; };
+		9F0A61171AEAD03800A089AF /* MochaPropertyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0A61161AEAD03800A089AF /* MochaPropertyTests.m */; };
+		9F0A611D1AEADAFE00A089AF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F0A611B1AEADAFE00A089AF /* Model.xcdatamodeld */; };
 		9F446F241A963D3F000910E6 /* MochaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F446F231A963D3F000910E6 /* MochaTests.m */; };
 		9F446F251A963D3F000910E6 /* Mocha.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAA45E03155CE44B00F93E40 /* Mocha.framework */; };
 		9F446F2B1A963D5E000910E6 /* Tests in Resources */ = {isa = PBXBuildFile; fileRef = 02BF152615C0973C0004CA2C /* Tests */; };
@@ -291,7 +293,7 @@
 		020FB3DB15C1EAE300B003DC /* MOPointerValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPointerValue.h; sourceTree = "<group>"; };
 		020FB3DC15C1EAE300B003DC /* MOPointerValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPointerValue.m; sourceTree = "<group>"; };
 		02112321155D7BD000415471 /* MOUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOUtilities.h; sourceTree = "<group>"; };
-		02112322155D7BD000415471 /* MOUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOUtilities.m; sourceTree = "<group>"; usesTabs = 0; };
+		02112322155D7BD000415471 /* MOUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = MOUtilities.m; sourceTree = "<group>"; usesTabs = 0; };
 		02112325155D973100415471 /* MOBridgeSupportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOBridgeSupportController.h; sourceTree = "<group>"; };
 		02112326155D973100415471 /* MOBridgeSupportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOBridgeSupportController.m; sourceTree = "<group>"; };
 		0211232A155D99F600415471 /* MOBridgeSupportSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOBridgeSupportSymbol.h; sourceTree = "<group>"; };
@@ -342,6 +344,8 @@
 		2D75F6671711975C00876CCF /* prep_cif.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prep_cif.c; sourceTree = "<group>"; };
 		2D75F6681711975C00876CCF /* raw_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw_api.c; sourceTree = "<group>"; };
 		2D75F6691711975C00876CCF /* types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = types.c; sourceTree = "<group>"; };
+		9F0A61161AEAD03800A089AF /* MochaPropertyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MochaPropertyTests.m; sourceTree = "<group>"; };
+		9F0A611C1AEADAFE00A089AF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		9F446F1F1A963D3F000910E6 /* MochaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MochaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F446F221A963D3F000910E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F446F231A963D3F000910E6 /* MochaTests.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = MochaTests.m; sourceTree = "<group>"; };
@@ -604,9 +608,11 @@
 		9F446F201A963D3F000910E6 /* MochaTests */ = {
 			isa = PBXGroup;
 			children = (
+				9F0A61161AEAD03800A089AF /* MochaPropertyTests.m */,
 				9F446F231A963D3F000910E6 /* MochaTests.m */,
-				9F446F211A963D3F000910E6 /* Supporting Files */,
 				9F446F2F1A96433A000910E6 /* MOMethodTests.m */,
+				9F446F211A963D3F000910E6 /* Supporting Files */,
+				9F0A611B1AEADAFE00A089AF /* Model.xcdatamodeld */,
 			);
 			path = MochaTests;
 			sourceTree = "<group>";
@@ -1212,7 +1218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F446F301A96433A000910E6 /* MOMethodTests.m in Sources */,
+				9F0A61171AEAD03800A089AF /* MochaPropertyTests.m in Sources */,
 				9F446F241A963D3F000910E6 /* MochaTests.m in Sources */,
+				9F0A611D1AEADAFE00A089AF /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1750,6 +1758,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9F0A611B1AEADAFE00A089AF /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9F0A611C1AEADAFE00A089AF /* Model.xcdatamodel */,
+			);
+			currentVersion = 9F0A611C1AEADAFE00A089AF /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EAA45DF9155CE44B00F93E40 /* Project object */;
 }
